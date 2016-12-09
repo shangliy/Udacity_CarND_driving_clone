@@ -11,7 +11,7 @@ This is project to use udacity self-driving car simulator to do clone driving tr
 
 **Model Architecture and Training Strategy**
 -------------
-The basic **structure** of my network inspired by the idea from the reference paper [[link]](chrome-extension://ecnphlgnajanjnkcmbpancdjoidceilk/content/web/viewer.html?file=http%3A%2F%2Fimages.nvidia.com%2Fcontent%2Ftegra%2Fautomotive%2Fimages%2F2016%2Fsolutions%2Fpdf%2Fend-to-end-dl-using-px.pdf). 
+The basic **structure** of my network inspired by the idea from the reference paper [link](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf). 
 The key differences include three parts:
  >* I use **RGB** value rather than Y value as input;
  >* Rather than take the steering angle as output. I separate the output into two part. 
@@ -41,7 +41,7 @@ The graph contains convolution layer, activation layer, normalization layer, ful
 
 To visualize the graph:
 
-![enter image description here](https://github.com/shangliy/driving_clone/blob/master/model.png?raw=true)
+   ![enter image description here](https://github.com/shangliy/driving_clone/blob/master/model.png?raw=true)
 
 ####  **Overfitting Reduce**
 
@@ -74,7 +74,7 @@ To reduce the effect of overfitting. Two methods applied in this project.
 	
 *  **Data Preprocessing**:
  * **Normalization** : Normalize input image data from 0~255 to 0~1.
- * ** Smoothing**: Considering the sensitivity of the simulator. The training data contains lots of noisy . Thus, it is better to smoothing the training data. 
+ * **Smoothing**: Considering the sensitivity of the simulator. The training data contains lots of noisy . Thus, it is better to smoothing the training data. 
  I use **pyasl.smooth** to smooth the training data. Below is the comparison of before and after smoothing . Detail in **plot_training_data.py**.
  
  	**Before Smoothing**
@@ -82,13 +82,13 @@ To reduce the effect of overfitting. Two methods applied in this project.
  	**After Smoothing**
  	![After Smoothing](https://github.com/shangliy/driving_clone/blob/master/figure_2-1.png?raw=true)
 
-	 * **Refining**: 
+  * **Refining**: 
 	 There are still lots of zeros-value angle and wrong training data. 
 	 
 	  Thus, I firstly remove half of zero value training data, then I built an apito refine the data by visualize the input image and target value.Use this api to refine the training data. use this api, we can increase or decrease the target value based on the image. It on the one hand, help to remove the wrong training data, on the other hand, it help to remove the noisy in training data. By the way, it also help to see what the car do wrong in the test. Detail in visulize_output.py.
 	  **Refining UI**
 	  
-![Refining UI](https://github.com/shangliy/driving_clone/blob/master/imageedit_20_3610796380.jpg?raw=true)
+       ![Refining UI](https://github.com/shangliy/driving_clone/blob/master/imageedit_20_3610796380.jpg?raw=true)
 
 
 **Architecture and Training Documentation**
