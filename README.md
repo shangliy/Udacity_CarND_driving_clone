@@ -40,7 +40,8 @@ Besides, some methods were also used to reduce the effect of **overfitting**.
 The graph contains convolution layer, activation layer, normalization layer, full connected layer and dropout layer. The activation layer bring in the nonlinearity . The normalization layer normalize the data.
 
 To visualize the graph:
-	![enter image description here](https://github.com/shangliy/driving_clone/blob/master/model.png?raw=true)
+
+![enter image description here](https://github.com/shangliy/driving_clone/blob/master/model.png?raw=true)
 
 ####  **Overfitting Reduce**
 
@@ -61,8 +62,9 @@ To reduce the effect of overfitting. Two methods applied in this project.
 	I use the simulator to generate the driving_log.csv file containing the center image path and steering angle. I then use plot_training_data.py to load the driving_log.csv and slit them into training dataset and validation dataset. Then I save them into train.p and test.p. The total number of data is about 40000.
 
 >Example of training data: 
+
 |                  | NUMBER                        |   ANGLE |
- ----------------- | ---------------------------- || ---------------------------- |
+|----------------- | ---------------------------- | ---------------------------- |
 | image_1  |  	![enter image description here](https://github.com/shangliy/driving_clone/blob/master/sample_data/0.jpg?raw=true)   | 0 |
 | image_2          | ![enter image description here](https://github.com/shangliy/driving_clone/blob/master/sample_data/905.jpg?raw=true)|-0.2|
 |  image_3             |![enter image description here](https://github.com/shangliy/driving_clone/blob/master/sample_data/2155.jpg?raw=true)| 0.2|
@@ -85,7 +87,8 @@ To reduce the effect of overfitting. Two methods applied in this project.
 	 
 	  Thus, I firstly remove half of zero value training data, then I built an apito refine the data by visualize the input image and target value.Use this api to refine the training data. use this api, we can increase or decrease the target value based on the image. It on the one hand, help to remove the wrong training data, on the other hand, it help to remove the noisy in training data. By the way, it also help to see what the car do wrong in the test. Detail in visulize_output.py.
 	  **Refining UI**
-	  ![Refining UI](https://github.com/shangliy/driving_clone/blob/master/imageedit_20_3610796380.jpg?raw=true)
+	  
+![Refining UI](https://github.com/shangliy/driving_clone/blob/master/imageedit_20_3610796380.jpg?raw=true)
 
 
 **Architecture and Training Documentation**
@@ -113,43 +116,43 @@ So, I use two output for the graph.
 
 * **Structure detail**
 >
-     -- **Convolution2D layer**, window_size **(5x5) **,  stride **(2x2) **, depth:  **32 **
-     -- **Activation layer**, 'relu'
-     --  **BatchNormalization layer**
+     - **Convolution2D layer**, window_size **(5x5) **,  stride **(2x2) **, depth:  **32 **
+     - **Activation layer**, 'relu'
+     -  **BatchNormalization layer**
 >
-   -- **Convolution2D layer**, window_size **(5x5) **, stride **(2x2 **), depth:  **64 **
-     -- **Activation layer**,'relu'
-     -- **BatchNormalization layer**
+     - **Convolution2D layer**, window_size **(5x5) **, stride **(2x2 **), depth:  **64 **
+     - **Activation layer**,'relu'
+     - **BatchNormalization layer**
 >
-   -- **Convolution2D layer**, window_size **(5x5) **, stride **(2x2) **, depth:  **128 **
-     -- **Activation layer**,'relu'
-     -- **BatchNormalization layer**
+     - **Convolution2D layer**, window_size **(5x5) **, stride **(2x2) **, depth:  **128 **
+     - **Activation layer**,'relu'
+     - **BatchNormalization layer**
 >
-   -- **Convolution2D layer**, window_size **(3x3) **, stride **(1x1) **, depth:  **128 **
-     -- **Activation layer**,'relu'
-     -- **BatchNormalization layer**
+     - **Convolution2D layer**, window_size **(3x3) **, stride **(1x1) **, depth:  **128 **
+     - **Activation layer**,'relu'
+     - **BatchNormalization layer**
 >
-   -- **Convolution2D layer**, window_size **(3x3 **), stride **(1x1) **, depth:  **128 **
-     -- **Activation layer**,'relu'
-     -- **BatchNormalization layer**
+     - **Convolution2D layer**, window_size **(3x3 **), stride **(1x1) **, depth:  **128 **
+     - **Activation layer**,'relu'
+     - **BatchNormalization layer**
 >
-   -- **Flaten layer**
-     -- **Dropout layer**  **(0.5) **
+     - **Flaten layer**
+     - **Dropout layer**  **(0.5) **
 >
-   -- **Full connected layer** : ->  **100 **
-     -- **Activation layer**, *'relu' 
-     -- **BatchNormalization layer**
+     - **Full connected layer** : ->  **100 **
+     - **Activation layer**, *'relu' 
+     - **BatchNormalization layer**
 >
-   -- **Full connected layer** :  **100 -> 50 **
-     -- **Activation layer**,' relu' 
-     -- **BatchNormalization layer**
+     - **Full connected layer** :  **100 -> 50 **
+     - **Activation layer**,' relu' 
+     - **BatchNormalization layer**
 >
-   -- **Full connected layer** :  **50 -> 3 **
-      -- **Activation layer**, 'softmax''
+      - **Full connected layer** :  **50 -> 3 **
+      - **Activation layer**, 'softmax''
 >
-   -- **Full connected layer** :  **50 -> 10 **
-       -- **Activation layer**,'relu''
-       -- **Full connected layer** :  **10 -> 1 **
+      - **Full connected layer** :  **50 -> 10 **
+      - **Activation layer**,'relu''
+      - **Full connected layer** :  **10 -> 1 **
       
 #### **Training Process**
 > 1: Training data detail described above;
