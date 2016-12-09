@@ -1,3 +1,17 @@
+#!/usr/locals/python
+#author:Shanglin Yang(kudoysl@gmail.com)
+
+'''
+This is the main script for training model.
+Function:
+    main(): Main function to do the training;
+    model_build(): Build model structure;
+    generate_arrays_from_file(): The batch data GeneratorExit;
+    data_load(): Load the input file
+
+'''
+
+
 import csv
 import sys
 import os.path
