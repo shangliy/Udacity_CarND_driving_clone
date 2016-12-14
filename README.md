@@ -99,6 +99,13 @@ At first, I use several full connected layer to get final one unit, which the pr
 The classification is for the direction. It is a 3-classes problem. 0 for turn left, 1 for go straight, 2 for turn right. The reason to do that is because the direction is more robust. For example, when we turn right, the angle varies much considering the simulator sensitivity or different situation, however, the direction is still same which has high confidence 
 The regression problem is for absolute steering angle. Thus, in the test, if direct == 1, steering_angle = 0, if direct == 0: steering_angle = (-1)*value, elif direct == 2,  steering_angle = value.
 So, I use two output for the graph.
+For detail of Training methods choose:
+* optimzer: I choose 'Adam', which not only stores  an exponentially decaying average of past squared gradients vtvt like Adadelta and RMSprop, but also keeps an exponentially decaying average of past gradients.RMSprop is an extension of Adagrad that deals with its radically diminishing learning rates. It is identical to Adadelta, except that Adadelta uses the RMS of parameter updates in the numinator update rule. Adam, finally, adds bias-correction and momentum to RMSprop. Insofar, RMSprop, Adadelta, and Adam are very similar algorithms that do well in similar circumstances. Kingma et al. [15] show that its bias-correction helps Adam slightly outperform RMSprop towards the end of optimization as gradients become sparser. Insofar, Adam might be the best overall choice.
+* Structure Design: Based on suggestion from reference paper. But modify some detail talked above.
+* Hyperparameter: Not much to tune, most using default suggested by keras. 
+* Data Preprocess: Deatil introducted above.
+* Training: Using model.it.
+* Evaluation: Using evaluation dataset. The performance based on loss function and accuracy metric.
 
 #### **Architecture Detail**
 
