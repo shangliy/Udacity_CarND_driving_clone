@@ -11,7 +11,7 @@ This is project to use udacity self-driving car simulator to do clone driving tr
 
 **Model Architecture and Training Strategy**
 -------------
-The basic **structure** of my network inspired by the idea from the reference paper [[link]](chrome-extension://ecnphlgnajanjnkcmbpancdjoidceilk/content/web/viewer.html?file=http%3A%2F%2Fimages.nvidia.com%2Fcontent%2Ftegra%2Fautomotive%2Fimages%2F2016%2Fsolutions%2Fpdf%2Fend-to-end-dl-using-px.pdf). 
+The basic **structure** of my network inspired by the idea from the reference paper [link](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf). 
 The key differences include three parts:
  >* I use **RGB** value rather than Y value as input;
  >* Rather than take the steering angle as output. I separate the output into two part. 
@@ -40,7 +40,8 @@ Besides, some methods were also used to reduce the effect of **overfitting**.
 The graph contains convolution layer, activation layer, normalization layer, full connected layer and dropout layer. The activation layer bring in the nonlinearity . The normalization layer normalize the data.
 
 To visualize the graph:
-	![enter image description here](https://github.com/shangliy/driving_clone/blob/master/model.png?raw=true)
+
+   ![enter image description here](https://github.com/shangliy/driving_clone/blob/master/model.png?raw=true)
 
 ####  **Overfitting Reduce**
 
@@ -61,8 +62,9 @@ To reduce the effect of overfitting. Two methods applied in this project.
 	I use the simulator to generate the driving_log.csv file containing the center image path and steering angle. I then use plot_training_data.py to load the driving_log.csv and slit them into training dataset and validation dataset. Then I save them into train.p and test.p. The total number of data is about 40000.
 
 >Example of training data: 
+
 |                  | NUMBER                        |   ANGLE |
- ----------------- | ---------------------------- || ---------------------------- |
+|----------------- | ---------------------------- | ---------------------------- |
 | image_1  |  	![enter image description here](https://github.com/shangliy/driving_clone/blob/master/sample_data/0.jpg?raw=true)   | 0 |
 | image_2          | ![enter image description here](https://github.com/shangliy/driving_clone/blob/master/sample_data/905.jpg?raw=true)|-0.2|
 |  image_3             |![enter image description here](https://github.com/shangliy/driving_clone/blob/master/sample_data/2155.jpg?raw=true)| 0.2|
@@ -72,7 +74,7 @@ To reduce the effect of overfitting. Two methods applied in this project.
 	
 *  **Data Preprocessing**:
  * **Normalization** : Normalize input image data from 0~255 to 0~1.
- * ** Smoothing**: Considering the sensitivity of the simulator. The training data contains lots of noisy . Thus, it is better to smoothing the training data. 
+ * **Smoothing**: Considering the sensitivity of the simulator. The training data contains lots of noisy . Thus, it is better to smoothing the training data. 
  I use **pyasl.smooth** to smooth the training data. Below is the comparison of before and after smoothing . Detail in **plot_training_data.py**.
  
  	**Before Smoothing**
@@ -80,12 +82,13 @@ To reduce the effect of overfitting. Two methods applied in this project.
  	**After Smoothing**
  	![After Smoothing](https://github.com/shangliy/driving_clone/blob/master/figure_2-1.png?raw=true)
 
-	 * **Refining**: 
+  * **Refining**: 
 	 There are still lots of zeros-value angle and wrong training data. 
 	 
 	  Thus, I firstly remove half of zero value training data, then I built an apito refine the data by visualize the input image and target value.Use this api to refine the training data. use this api, we can increase or decrease the target value based on the image. It on the one hand, help to remove the wrong training data, on the other hand, it help to remove the noisy in training data. By the way, it also help to see what the car do wrong in the test. Detail in visulize_output.py.
 	  **Refining UI**
-	  ![Refining UI](https://github.com/shangliy/driving_clone/blob/master/imageedit_20_3610796380.jpg?raw=true)
+	  
+       ![Refining UI](https://github.com/shangliy/driving_clone/blob/master/imageedit_20_3610796380.jpg?raw=true)
 
 
 **Architecture and Training Documentation**
@@ -96,6 +99,13 @@ At first, I use several full connected layer to get final one unit, which the pr
 The classification is for the direction. It is a 3-classes problem. 0 for turn left, 1 for go straight, 2 for turn right. The reason to do that is because the direction is more robust. For example, when we turn right, the angle varies much considering the simulator sensitivity or different situation, however, the direction is still same which has high confidence 
 The regression problem is for absolute steering angle. Thus, in the test, if direct == 1, steering_angle = 0, if direct == 0: steering_angle = (-1)*value, elif direct == 2,  steering_angle = value.
 So, I use two output for the graph.
+For detail of Training methods choose:
+* optimzer: I choose 'Adam', which not only stores  an exponentially decaying average of past squared gradients vtvt like Adadelta and RMSprop, but also keeps an exponentially decaying average of past gradients.RMSprop is an extension of Adagrad that deals with its radically diminishing learning rates. It is identical to Adadelta, except that Adadelta uses the RMS of parameter updates in the numinator update rule. Adam, finally, adds bias-correction and momentum to RMSprop. Insofar, RMSprop, Adadelta, and Adam are very similar algorithms that do well in similar circumstances. Kingma et al. [15] show that its bias-correction helps Adam slightly outperform RMSprop towards the end of optimization as gradients become sparser. Insofar, Adam might be the best overall choice.
+* Structure Design: Based on suggestion from reference paper. But modify some detail talked above.
+* Hyperparameter: Not much to tune, most using default suggested by keras. 
+* Data Preprocess: Deatil introducted above.
+* Training: Using model.it.
+* Evaluation: Using evaluation dataset. The performance based on loss function and accuracy metric.
 
 #### **Architecture Detail**
 
@@ -113,43 +123,43 @@ So, I use two output for the graph.
 
 * **Structure detail**
 >
-     -- **Convolution2D layer**, window_size **(5x5) **,  stride **(2x2) **, depth:  **32 **
-     -- **Activation layer**, 'relu'
-     --  **BatchNormalization layer**
+     - **Convolution2D layer**, window_size **(5x5) **,  stride **(2x2) **, depth:  **32 **
+     - **Activation layer**, 'relu'
+     -  **BatchNormalization layer**
 >
-   -- **Convolution2D layer**, window_size **(5x5) **, stride **(2x2 **), depth:  **64 **
-     -- **Activation layer**,'relu'
-     -- **BatchNormalization layer**
+     - **Convolution2D layer**, window_size **(5x5) **, stride **(2x2 **), depth:  **64 **
+     - **Activation layer**,'relu'
+     - **BatchNormalization layer**
 >
-   -- **Convolution2D layer**, window_size **(5x5) **, stride **(2x2) **, depth:  **128 **
-     -- **Activation layer**,'relu'
-     -- **BatchNormalization layer**
+     - **Convolution2D layer**, window_size **(5x5) **, stride **(2x2) **, depth:  **128 **
+     - **Activation layer**,'relu'
+     - **BatchNormalization layer**
 >
-   -- **Convolution2D layer**, window_size **(3x3) **, stride **(1x1) **, depth:  **128 **
-     -- **Activation layer**,'relu'
-     -- **BatchNormalization layer**
+     - **Convolution2D layer**, window_size **(3x3) **, stride **(1x1) **, depth:  **128 **
+     - **Activation layer**,'relu'
+     - **BatchNormalization layer**
 >
-   -- **Convolution2D layer**, window_size **(3x3 **), stride **(1x1) **, depth:  **128 **
-     -- **Activation layer**,'relu'
-     -- **BatchNormalization layer**
+     - **Convolution2D layer**, window_size **(3x3 **), stride **(1x1) **, depth:  **128 **
+     - **Activation layer**,'relu'
+     - **BatchNormalization layer**
 >
-   -- **Flaten layer**
-     -- **Dropout layer**  **(0.5) **
+     - **Flaten layer**
+     - **Dropout layer**  **(0.5) **
 >
-   -- **Full connected layer** : ->  **100 **
-     -- **Activation layer**, *'relu' 
-     -- **BatchNormalization layer**
+     - **Full connected layer** : ->  **100 **
+     - **Activation layer**, *'relu' 
+     - **BatchNormalization layer**
 >
-   -- **Full connected layer** :  **100 -> 50 **
-     -- **Activation layer**,' relu' 
-     -- **BatchNormalization layer**
+     - **Full connected layer** :  **100 -> 50 **
+     - **Activation layer**,' relu' 
+     - **BatchNormalization layer**
 >
-   -- **Full connected layer** :  **50 -> 3 **
-      -- **Activation layer**, 'softmax''
+      - **Full connected layer** :  **50 -> 3 **
+      - **Activation layer**, 'softmax''
 >
-   -- **Full connected layer** :  **50 -> 10 **
-       -- **Activation layer**,'relu''
-       -- **Full connected layer** :  **10 -> 1 **
+      - **Full connected layer** :  **50 -> 10 **
+      - **Activation layer**,'relu''
+      - **Full connected layer** :  **10 -> 1 **
       
 #### **Training Process**
 > 1: Training data detail described above;
