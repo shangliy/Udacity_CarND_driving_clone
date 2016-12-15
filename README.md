@@ -1,4 +1,4 @@
-# driving_clone
+#Driving Clone
 
 **Use Deep Learning to Clone Driving Behavior**
 ===================
@@ -32,7 +32,7 @@ Besides, some methods were also used to reduce the effect of **overfitting**.
 > - There are another two files related with model:
 	* **model.json** :  model structure
 	* **model.h5** :  model weights
-> - You can check the simulator result video from youtube.[ [link ](https://www.youtube.com/watch?v=dZbjTP7d100&feature=youtu.be)]
+> - You can check the simulator result video from youtube.[ [link ](https://youtu.be/SNHYIC_zBR4)]
 
 
 #### **Graph Structure**
@@ -172,7 +172,7 @@ For detail of Training methods choose:
 **Simulation**
 -------------
 
->You can check the simulator result video from youtube.[ [link ]](https://www.youtube.com/watch?v=dZbjTP7d100&feature=youtu.be)
+>You can check the simulator result video from youtube.[ [link ]](https://youtu.be/SNHYIC_zBR4)
 
 
 
