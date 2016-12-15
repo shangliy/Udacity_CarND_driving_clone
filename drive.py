@@ -72,12 +72,21 @@ def telemetry(sid, data):
     direct = np.argmax(angle[0]) # The direct of the car (0 : turn left, 1: straight, 2: turn right)
     if direct == 1:
         steering_angle = 0
+        sub = 20.0
     elif direct == 0:
         min_value = min(0.3,value[0][0]) # This may be removed in the future if speed needed increases
         steering_angle = (-1)*min_value
+        if steering_angle > 0.15:
+            sub = 14.0  # To keep the steering more smooth
+        else:
+            sub = 17.0
     elif direct == 2:
         min_value = min(0.3,value[0][0])
         steering_angle = float(min_value)
+        if steering_angle > 0.15:
+            sub = 14.0
+        else:
+            sub = 20.0
         
 
     throttle = 0.2
@@ -94,7 +103,7 @@ def telemetry(sid, data):
     #pickle.dump(output_ele, open("output.p","ab"))
 
     print(steering_angle, throttle,speed)
-    send_control(float(speed)*steering_angle/15.0, throttle)  #adjust the result based on the speed 
+    send_control(float(speed)*steering_angle/sub, throttle)  #adjust the result based on the speed 
 
 
 @sio.on('connect')
