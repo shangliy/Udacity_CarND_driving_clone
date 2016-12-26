@@ -7,7 +7,19 @@
 This is project to use udacity self-driving car simulator to do clone driving training.
 
 ----------
+**Required Libraries and tools**
+------------
+>* Python Libraries:
+>>*  keras [install guide](https://keras.io/ )
+>>*  Tensorflow [install guide]( https://www.tensorflow.org/ )
+>>*  anaconda [Download](https://www.continuum.io/downloads)
+>>*  tkinter [Install](https://wiki.python.org/moin/TkInter)
 
+>* Car Simulator:
+>>* Udaicty Simulator [Package](https://drive.google.com/open?id=0B4kZHpLsz7tTS3FJb3E2QjdQZWs)
+
+>* Data Set:
+>>* Traning Dataset [Link](https://drive.google.com/open?id=0B4kZHpLsz7tTSjRmcWFXcHoxVVk)
 
 **Model Architecture and Training Strategy**
 -------------
